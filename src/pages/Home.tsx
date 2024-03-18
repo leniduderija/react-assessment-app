@@ -6,6 +6,16 @@ import {
   FetchingDataComponent,
   FetchingFailedComponent,
 } from "../components/fetching-components";
+import styled from "styled-components";
+import { FlowerCard } from "../components/flower-card/FlowerCard";
+import { Link } from "react-router-dom";
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+`;
 
 function Home() {
   const [flowers, setFlowers] = useState<FlowerDto[]>([]);
@@ -35,6 +45,8 @@ function Home() {
     };
   }, [setIsError, setIsFetching]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const handleToggleFavorite = (id: number) => console.log("FAVORITE ID ", id);
+
   if (isFetching) {
     return <FetchingDataComponent />;
   }
@@ -45,7 +57,19 @@ function Home() {
 
   return (
     <div className="Home">
-      {flowers?.map((flower) => <div key={flower.id}>{flower.name}</div>)}
+      <Grid>
+        {flowers?.map((flower, index) => (
+          <Link key={flower.id} to={`/flowers/${flower.id}`}>
+            <FlowerCard
+              flower={flower}
+              backgroundImage={
+                index % 3 === 0 ? "/images/flower2.jpg" : "/images/flower1.jpg"
+              }
+              onToggleFavorite={handleToggleFavorite}
+            />
+          </Link>
+        ))}
+      </Grid>
     </div>
   );
 }
