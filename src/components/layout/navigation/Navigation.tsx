@@ -3,6 +3,11 @@ import cn from "classnames";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Button, ButtonShape, ButtonVariant } from "../../ui";
+import { useDisclosure } from "../../../utils/hooks/useDisclosure";
+import { createPortal } from "react-dom";
+import { RegistrationModal } from "../../registration-modal/RegistrationModal";
+import { LoginModal } from "../../login-modal/LoginModal";
+import { UserModal } from "../../user-modal/UserModal";
 
 const Nav = styled.nav`
   display: flex;
@@ -41,37 +46,75 @@ export const Navigation = ({
   onRegistration,
   className,
 }: NavigationProps) => {
+  const { isOpen: showLoginModal, toggle: toggleLoginModal } = useDisclosure();
+  const { isOpen: showRegistrationModal, toggle: toggleRegistrationModal } =
+    useDisclosure();
+  const { isOpen: showUserModal, toggle: toggleUserModal } = useDisclosure();
+
+  const handleRegistrationSuccessClose = () => {
+    toggleRegistrationModal();
+    toggleLoginModal();
+  };
+
+  const handleLoginSuccessClose = () => {
+    toggleLoginModal();
+    toggleUserModal();
+  };
+
   return (
-    <Nav className={cn("Navigation", className)} data-testid="Navigation">
-      <List>
-        <NavItem>
-          <Link to="/flowers">Flowers</Link>
-        </NavItem>
-        <NavItem>
-          <Link to="/latest-sightings">Latest Sightings</Link>
-        </NavItem>
-        <NavItem>
-          <Link to="/favorites">Favorites</Link>
-        </NavItem>
-        <NavItem>
-          <Button
-            variant={ButtonVariant.Link}
-            color="#DF9186"
-            onClick={onLogin}
-          >
-            Login
-          </Button>
-        </NavItem>
-        <NavItem>
-          <Button
-            variant={ButtonVariant.Solid}
-            shape={ButtonShape.Rounded}
-            onClick={onRegistration}
-          >
-            New Account
-          </Button>
-        </NavItem>
-      </List>
-    </Nav>
+    <>
+      <Nav className={cn("Navigation", className)} data-testid="Navigation">
+        <List>
+          <NavItem>
+            <Link to="/flowers">Flowers</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/latest-sightings">Latest Sightings</Link>
+          </NavItem>
+          <NavItem>
+            <Link to="/favorites">Favorites</Link>
+          </NavItem>
+          <NavItem>
+            <Button
+              variant={ButtonVariant.Link}
+              color="#DF9186"
+              onClick={toggleLoginModal}
+            >
+              Login
+            </Button>
+          </NavItem>
+          <NavItem>
+            <Button
+              variant={ButtonVariant.Solid}
+              shape={ButtonShape.Rounded}
+              onClick={toggleRegistrationModal}
+            >
+              New Account
+            </Button>
+          </NavItem>
+        </List>
+      </Nav>
+      {showRegistrationModal &&
+        createPortal(
+          <RegistrationModal
+            onClose={toggleRegistrationModal}
+            onSuccessClose={handleRegistrationSuccessClose}
+          />,
+          document.body,
+        )}
+      {showLoginModal &&
+        createPortal(
+          <LoginModal
+            onClose={toggleLoginModal}
+            onSuccessClose={handleLoginSuccessClose}
+          />,
+          document.body,
+        )}
+      {showUserModal &&
+        createPortal(
+          <UserModal user={null} onClose={toggleUserModal} />,
+          document.body,
+        )}
+    </>
   );
 };

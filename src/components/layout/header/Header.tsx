@@ -1,4 +1,4 @@
-import React, { AllHTMLAttributes } from "react";
+import React from "react";
 import "./Header.css";
 import cn from "classnames";
 import { Container } from "../../ui/container/Container";

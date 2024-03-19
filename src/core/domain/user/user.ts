@@ -7,6 +7,7 @@ export interface UserDto {
 export interface UserRegistrationDto extends Omit<UserDto, "id"> {
   email: string;
   password: string;
+  date_of_birth: string | Date;
 }
 
 export type UserLoginDto = Pick<UserRegistrationDto, "email" | "password">;

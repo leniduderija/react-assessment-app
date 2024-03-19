@@ -15,11 +15,13 @@ export const Layout = ({ children, className }: LayoutProps) => {
   const handleLogin = () => console.log("handle login");
   const handleRegistration = () => console.log("handle registration");
   return (
-    <div className={cn("Layout", className)} data-testid="Layout">
-      <Header onLogin={handleLogin} onRegistration={handleRegistration} />
-      <StyledMain>
-        <Container>{children}</Container>
-      </StyledMain>
-    </div>
+    <>
+      <div className={cn("Layout", className)} data-testid="Layout">
+        <Header onLogin={handleLogin} onRegistration={handleRegistration} />
+        <StyledMain>
+          <Container>{children}</Container>
+        </StyledMain>
+      </div>
+    </>
   );
 };

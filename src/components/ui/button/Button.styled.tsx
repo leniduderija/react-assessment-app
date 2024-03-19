@@ -34,6 +34,9 @@ export const StyledButton = styled.button<{
       background: linear-gradient(270deg, #ecbcb3 0%, #eaa79e 100%);
       box-shadow: 0px 15px 20px rgba(234, 168, 159, 0.2);
       border: none;
+      &:hover {
+        background: linear-gradient(270deg, #eaa79e 0%, #eaa79e 100%);
+      }
     `}
 
   ${(props) =>

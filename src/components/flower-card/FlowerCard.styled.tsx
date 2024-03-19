@@ -62,12 +62,11 @@ export const CardFooter = styled.div`
 `;
 
 export const CardTitle = styled.p`
-  font-family: "Ubuntu";
+  font-family: "Ubuntu", sans-serif;
   font-style: normal;
   font-size: 20px;
   line-height: 28px;
   text-align: center;
-  margin: 0;
 `;
 
 export const CardSubtitle = styled(CardTitle)`
@@ -81,7 +80,7 @@ export const CardActionButton = styled(Button)`
   background: rgba(0, 0, 0, 0.5);
   border-radius: 20px;
   color: #fff;
-  font-family: "Ubuntu";
+  font-family: "Ubuntu", sans-serif;
   font-style: normal;
   font-size: 12px;
   line-height: 12px;

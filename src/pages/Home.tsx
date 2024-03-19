@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { FlowerDto } from "../core/domain/flowers/flowers";
 import { flowersService } from "../core/domain/flowers/flowers.service";
-import { useBoolean } from "../utils/hooks/use-boolean";
+import { useBoolean } from "../utils/hooks/useBoolean";
 import {
   FetchingDataComponent,
   FetchingFailedComponent,
