@@ -1,42 +1,26 @@
-import React from "react";
-import { Input } from "../ui";
-import { Box } from "../ui/box/Box";
-import styled from "styled-components";
-import { ModalActionButton, ModalFooter } from "../ui/modal/Modal.styled";
-import { UserRegistrationDto } from "../../core/domain/user/user";
-import { ErrorText } from "../ui/error-text/ErrorText.styled";
+import React from 'react';
+import { Input } from '../ui/input/Input';
+import { ModalActionButton, ModalFooter } from '../ui/modal/Modal.styled';
+import { RegistrationDto } from '../../core/domain/auth/auth';
+import { ErrorText } from '../ui/error-text/ErrorText.styled';
+import {
+  ContainerBox,
+  Form,
+  FullWidthBox,
+  HalfWidthBox,
+} from './RegistrationModal.styled';
+import { DatePickerWithLabel } from '../ui/datepicker/DatePicker';
 
 interface RegistrationFormProps {
-  values: UserRegistrationDto | null;
+  values: RegistrationDto | null;
   onChange: (field: string, value: string | Date) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  errors?: UserRegistrationDto | null;
+  errors?: RegistrationDto | null;
   submitting?: boolean;
 }
 
-export const ContainerBox = styled(Box)`
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 10px;
-`;
-
-export const FullWidthBox = styled(Box)`
-  width: 100%;
-  flex-direction: column;
-  margin-bottom: 10px;
-`;
-
-export const HalfWidthBox = styled(Box)`
-  width: 185px;
-  flex-direction: column;
-`;
-
-export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
+const defaultDateString = '1988-01-01';
+const defaultDate = new Date(defaultDateString);
 
 export const RegistrationForm = ({
   values,
@@ -48,23 +32,13 @@ export const RegistrationForm = ({
   const onFieldChange = (field: string, value: string | Date) =>
     onChange(field, value);
 
-  // const date = values?.date_of_birth
-  //   ? new Date(values?.date_of_birth)
-  //   : new Date();
-
-  // const dateFormatted = date.toLocaleDateString("en-US", {
-  //   year: "numeric",
-  //   month: "short",
-  //   day: "2-digit",
-  // });
-
   return (
     <Form onSubmit={(e) => onSubmit(e)}>
       <ContainerBox>
         <HalfWidthBox>
           <Input
             value={values?.first_name}
-            onChange={(e) => onFieldChange("first_name", e.target.value)}
+            onChange={(e) => onFieldChange('first_name', e.target.value)}
             label="First Name"
             inputName="first_name"
             placeholder="e.g. John"
@@ -76,7 +50,7 @@ export const RegistrationForm = ({
         <HalfWidthBox>
           <Input
             value={values?.last_name}
-            onChange={(e) => onFieldChange("last_name", e.target.value)}
+            onChange={(e) => onFieldChange('last_name', e.target.value)}
             label="Last Name"
             inputName="last_name"
             placeholder="e.g. Doe"
@@ -87,12 +61,10 @@ export const RegistrationForm = ({
         </HalfWidthBox>
       </ContainerBox>
       <FullWidthBox>
-        <Input
-          onChange={(e) => onFieldChange("date_of_birth", e.target.value)}
+        <DatePickerWithLabel
+          onChange={(date) => onFieldChange('date_of_birth', date as Date)}
+          value={values?.date_of_birth || defaultDate}
           label="Date of Birth"
-          inputName="date_of_birth"
-          placeholder="e.g. 21 May, 1988"
-          type="date"
           required
         />
         {errors?.date_of_birth && (
@@ -102,7 +74,7 @@ export const RegistrationForm = ({
       <FullWidthBox>
         <Input
           value={values?.email}
-          onChange={(e) => onFieldChange("email", e.target.value)}
+          onChange={(e) => onFieldChange('email', e.target.value)}
           label="Email Address"
           inputName="email"
           placeholder="e.g. john.doe@gmail.com"
@@ -114,7 +86,7 @@ export const RegistrationForm = ({
       <FullWidthBox>
         <Input
           value={values?.password}
-          onChange={(e) => onFieldChange("password", e.target.value)}
+          onChange={(e) => onFieldChange('password', e.target.value)}
           label="Password"
           inputName="password"
           type="password"
@@ -125,7 +97,7 @@ export const RegistrationForm = ({
       </FullWidthBox>
       <ModalFooter>
         <ModalActionButton type="submit" disabled={submitting}>
-          {submitting ? "Submitting..." : "Create Account"}
+          {submitting ? 'Submitting...' : 'Create Account'}
         </ModalActionButton>
       </ModalFooter>
     </Form>
