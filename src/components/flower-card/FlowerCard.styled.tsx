@@ -1,5 +1,6 @@
-import styled, { css } from "styled-components";
-import { Button, Card } from "../ui";
+import styled, { css } from 'styled-components';
+import { Button } from '../ui/button/Button';
+import { Card } from '../ui/card/Card';
 
 export const CardBackground = styled.div<{
   backgroundImage: string;
@@ -34,6 +35,12 @@ export const StyledCard = styled(Card)`
   padding: 20px;
   box-sizing: border-box;
   cursor: pointer;
+
+  @media (max-width: 767px) {
+    width: 224px;
+    height: 280px;
+    padding: 16px;
+  }
 `;
 
 export const CardContent = styled.div`
@@ -62,11 +69,16 @@ export const CardFooter = styled.div`
 `;
 
 export const CardTitle = styled.p`
-  font-family: "Ubuntu", sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   font-style: normal;
   font-size: 20px;
   line-height: 28px;
   text-align: center;
+
+  @media (max-width: 767px) {
+    font-size: 16px;
+    line-height: 24px;
+  }
 `;
 
 export const CardSubtitle = styled(CardTitle)`
@@ -74,18 +86,28 @@ export const CardSubtitle = styled(CardTitle)`
   font-size: 12px;
   line-height: 18px;
   opacity: 0.7;
+
+  @media (max-width: 767px) {
+    font-size: 10px;
+    line-height: 20px;
+  }
 `;
 
 export const CardActionButton = styled(Button)`
   background: rgba(0, 0, 0, 0.5);
   border-radius: 20px;
   color: #fff;
-  font-family: "Ubuntu", sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   font-style: normal;
   font-size: 12px;
   line-height: 12px;
   padding: 9px 15px;
   &:hover {
     background: rgba(0, 0, 0, 0.5);
+  }
+
+  @media (max-width: 767px) {
+    font-size: 10px;
+    line-height: 20px;
   }
 `;

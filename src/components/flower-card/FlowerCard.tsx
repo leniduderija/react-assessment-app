@@ -1,5 +1,5 @@
-import React from "react";
-import { FlowerDto } from "../../core/domain/flowers/flowers";
+import React from 'react';
+import { FlowerDto } from '../../core/domain/flowers/flowers';
 import {
   CardActionButton,
   CardBackground,
@@ -10,10 +10,10 @@ import {
   CardSubtitle,
   CardTitle,
   StyledCard as Card,
-} from "./FlowerCard.styled";
-import { Button as UiButton, ButtonShape } from "../ui";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
+} from './FlowerCard.styled';
+import { Button as UiButton, ButtonShape } from '../ui/button/Button';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 interface FlowerCardProps {
   flower: FlowerDto;
@@ -30,6 +30,11 @@ const Button = styled(UiButton)`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: 767px) {
+    width: 24px;
+    height: 24px;
+  }
 `;
 
 export const FlowerCard = ({
@@ -59,8 +64,8 @@ export const FlowerCard = ({
         <CardFooter>
           <Link to={`/sightings/${flower.id}`}>
             <CardActionButton>
-              {flower.sightings}{" "}
-              {flower.sightings === 1 ? "sighting" : "sightings"}
+              {flower.sightings}{' '}
+              {flower.sightings === 1 ? 'sighting' : 'sightings'}
             </CardActionButton>
           </Link>
         </CardFooter>

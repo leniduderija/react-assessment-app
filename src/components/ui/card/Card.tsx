@@ -1,6 +1,6 @@
-import React, { AllHTMLAttributes } from "react";
-import cn from "classnames";
-import styled from "styled-components";
+import React, { AllHTMLAttributes } from 'react';
+import cn from 'classnames';
+import styled from 'styled-components';
 
 interface CardProps extends AllHTMLAttributes<HTMLDivElement> {}
 
@@ -15,7 +15,7 @@ const StyledCard = styled.div`
 
 export const Card = ({ children, className }: CardProps) => {
   return (
-    <StyledCard className={cn("Card", className)} data-testid="Card">
+    <StyledCard className={cn('Card', className)} data-testid="Card">
       {children}
     </StyledCard>
   );

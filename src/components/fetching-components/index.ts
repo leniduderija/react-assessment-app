@@ -1,2 +1,2 @@
-export * from "./FetchingDataComponent";
-export * from "./FetchingFailedComponent";
+export * from './FetchingDataComponent';
+export * from './FetchingFailedComponent';

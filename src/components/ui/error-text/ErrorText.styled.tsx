@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ErrorText = styled.p`
   font-size: 10px;

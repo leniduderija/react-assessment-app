@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Button } from "../button/Button";
+import styled from 'styled-components';
+import { Button } from '../button/Button';
 
 export const BaseModal = styled.div`
   display: flex;
@@ -14,6 +14,10 @@ export const BaseModal = styled.div`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+
+  @media (max-width: 767px) {
+    position: absolute;
+  }
 `;
 
 export const ModalOverlay = styled.div`
@@ -29,6 +33,10 @@ export const ModalOverlay = styled.div`
   justify-content: center;
   align-items: flex-start;
   background: rgba(0, 0, 0, 0.48);
+
+  @media (max-width: 767px) {
+    display: none;
+  }
 `;
 
 export const ModalContent = styled.div`
@@ -36,11 +44,12 @@ export const ModalContent = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+  position: relative;
 
   padding: 30px;
 
   z-index: 2;
-  font-family: "Ubuntu", sans-serif;
+  font-family: 'Ubuntu', sans-serif;
   font-style: normal;
   color: #334144;
   text-align: center;
@@ -50,23 +59,33 @@ export const ModalContent = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 3px;
   box-sizing: border-box;
+
+  @media (max-width: 767px) {
+    width: 100%;
+    height: 100%;
+  }
 `;
 
 export const ModalHeader = styled.div`
   display: flex;
-  justify-content: center;
-  position: relative;
-  align-items: center;
+  justify-content: flex-start;
   margin-bottom: 30px;
+  align-items: flex-start;
 `;
 
 export const CloseIcon = styled.div`
-  margin-left: auto;
+  position: absolute;
+  top: 12px;
+  right: 12px;
   width: 25px;
   height: 25px;
   cursor: pointer;
   & img {
     width: 100%;
+  }
+
+  @media (max-width: 767px) {
+    display: none;
   }
 `;
 
@@ -84,7 +103,9 @@ export const ModalFooter = styled.div`
 `;
 
 export const ModalTitle = styled.p`
-  margin: 0 0 0 auto;
+  display: flex;
+  justify-content: center;
+  width: 100%;
   font-weight: 500;
   font-size: 20px;
   line-height: 20px;

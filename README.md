@@ -19,6 +19,8 @@ You will also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+Button component contains snapshot test as required in Button.test.tsx.
+
 ### `npm run build` or `yarn build`
 
 Builds the app for production to the `build` folder.\
@@ -49,3 +51,4 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 ## API documentation
 
 [FlowrSpot API documentation]https://flowrspot-api.herokuapp.com/doc
+

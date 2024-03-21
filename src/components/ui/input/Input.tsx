@@ -1,6 +1,6 @@
-import React, { InputHTMLAttributes } from "react";
-import cn from "classnames";
-import { BaseInput, BaseInputContainer, BaseLabel } from "./Input.styled";
+import React, { InputHTMLAttributes } from 'react';
+import cn from 'classnames';
+import { BaseInput, BaseInputContainer, BaseLabel } from './Input.styled';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -19,7 +19,7 @@ export const Input = ({
     <BaseInputContainer>
       <BaseLabel htmlFor={inputName}>{label}</BaseLabel>
       <BaseInput
-        className={cn("Input", className)}
+        className={cn('Input', className)}
         name={inputName}
         onChange={onChange}
         placeholder={placeholder}

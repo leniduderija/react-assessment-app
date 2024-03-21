@@ -1,55 +1,39 @@
-import React from "react";
-import cn from "classnames";
-import styled from "styled-components";
-import { Link } from "react-router-dom";
-import { Button, ButtonShape, ButtonVariant } from "../../ui";
-import { useDisclosure } from "../../../utils/hooks/useDisclosure";
-import { createPortal } from "react-dom";
-import { RegistrationModal } from "../../registration-modal/RegistrationModal";
-import { LoginModal } from "../../login-modal/LoginModal";
-import { UserModal } from "../../user-modal/UserModal";
-
-const Nav = styled.nav`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
-const List = styled.ul`
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: row;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 14px;
-  font-family: "Montserrat", sans-serif;
-`;
-
-const NavItem = styled.li`
-  display: flex;
-  flex-direction: column;
-  & a {
-    padding: 12px 22px;
-    color: #949ea0;
-    text-decoration: none;
-  }
-`;
+import React from 'react';
+import cn from 'classnames';
+import { Link } from 'react-router-dom';
+import { Button, ButtonShape, ButtonVariant } from '../../ui/button/Button';
+import { useDisclosure } from '../../../utils/hooks/useDisclosure';
+import { createPortal } from 'react-dom';
+import { RegistrationModal } from '../../registration-modal/RegistrationModal';
+import { LoginModal } from '../../login-modal/LoginModal';
+import { UserModal } from '../../user-modal/UserModal';
+import { useAuth } from '../../../core/auth/AuthProvider';
+import {
+  HamburgerButton,
+  List,
+  MobileNavItem,
+  Nav,
+  NavItem,
+  StyledAvatar,
+  UserItem,
+} from './Navigation.styled';
+import {
+  MobileMenuModal,
+  ModalType,
+} from '../../mobile-menu-modal/MobileMenuModal';
 
 interface NavigationProps {
-  onLogin: () => void;
-  onRegistration: () => void;
   className?: string;
 }
-export const Navigation = ({
-  onLogin,
-  onRegistration,
-  className,
-}: NavigationProps) => {
+export const Navigation = ({ className }: NavigationProps) => {
   const { isOpen: showLoginModal, toggle: toggleLoginModal } = useDisclosure();
   const { isOpen: showRegistrationModal, toggle: toggleRegistrationModal } =
     useDisclosure();
   const { isOpen: showUserModal, toggle: toggleUserModal } = useDisclosure();
+
+  const { isOpen: showMobileMenu, toggle: toggleMobileMenu } = useDisclosure();
+
+  const { user } = useAuth();
 
   const handleRegistrationSuccessClose = () => {
     toggleRegistrationModal();
@@ -61,10 +45,34 @@ export const Navigation = ({
     toggleUserModal();
   };
 
+  const handleModalOpen = (type: ModalType) => {
+    if (showMobileMenu) toggleMobileMenu();
+    switch (type) {
+      case ModalType.Login:
+        toggleLoginModal();
+        return;
+      case ModalType.Registration:
+        toggleRegistrationModal();
+        return;
+      case ModalType.User:
+        toggleUserModal();
+        return;
+      default:
+        return;
+    }
+  };
+
+  const handleToggleMobileMenu = () => {
+    toggleMobileMenu();
+    if (showRegistrationModal) toggleRegistrationModal();
+    if (showLoginModal) toggleLoginModal();
+    if (showUserModal) toggleUserModal();
+  };
+
   return (
     <>
-      <Nav className={cn("Navigation", className)} data-testid="Navigation">
-        <List>
+      <Nav className={cn('Navigation', className)} data-testid="Navigation">
+        <List userLoggedIn={!!user}>
           <NavItem>
             <Link to="/flowers">Flowers</Link>
           </NavItem>
@@ -74,25 +82,49 @@ export const Navigation = ({
           <NavItem>
             <Link to="/favorites">Favorites</Link>
           </NavItem>
-          <NavItem>
-            <Button
-              variant={ButtonVariant.Link}
-              color="#DF9186"
-              onClick={toggleLoginModal}
-            >
-              Login
-            </Button>
-          </NavItem>
-          <NavItem>
-            <Button
-              variant={ButtonVariant.Solid}
-              shape={ButtonShape.Rounded}
-              onClick={toggleRegistrationModal}
-            >
-              New Account
-            </Button>
-          </NavItem>
+          {!user && (
+            <>
+              <NavItem>
+                <Button
+                  variant={ButtonVariant.Link}
+                  color="#DF9186"
+                  onClick={toggleLoginModal}
+                >
+                  Login
+                </Button>
+              </NavItem>
+              <NavItem>
+                <Button
+                  variant={ButtonVariant.Solid}
+                  shape={ButtonShape.Rounded}
+                  onClick={toggleRegistrationModal}
+                >
+                  New Account
+                </Button>
+              </NavItem>
+            </>
+          )}
+          {user && (
+            <NavItem>
+              <UserItem onClick={toggleUserModal}>
+                {user.first_name} {user.last_name}{' '}
+                <StyledAvatar image={user?.avatar} />
+              </UserItem>
+            </NavItem>
+          )}
         </List>
+        <MobileNavItem>
+          <HamburgerButton
+            variant={ButtonVariant.Outlined}
+            onClick={toggleMobileMenu}
+          >
+            {showMobileMenu ? (
+              <img src="/images/icon-close.png" alt="Close Modal" />
+            ) : (
+              <img src="/images/mm_hamburger.png" alt="Mobile Menu" />
+            )}
+          </HamburgerButton>
+        </MobileNavItem>
       </Nav>
       {showRegistrationModal &&
         createPortal(
@@ -100,20 +132,33 @@ export const Navigation = ({
             onClose={toggleRegistrationModal}
             onSuccessClose={handleRegistrationSuccessClose}
           />,
-          document.body,
+          document.getElementsByClassName('Main')[0],
         )}
       {showLoginModal &&
         createPortal(
           <LoginModal
-            onClose={toggleLoginModal}
+            onClose={() => {
+              toggleLoginModal();
+              if (showMobileMenu) toggleMobileMenu();
+            }}
             onSuccessClose={handleLoginSuccessClose}
           />,
-          document.body,
+          document.getElementsByClassName('Main')[0],
         )}
       {showUserModal &&
+        user &&
         createPortal(
-          <UserModal user={null} onClose={toggleUserModal} />,
-          document.body,
+          <UserModal onClose={toggleUserModal} />,
+          document.getElementsByClassName('Main')[0],
+        )}
+
+      {showMobileMenu &&
+        createPortal(
+          <MobileMenuModal
+            onClose={handleToggleMobileMenu}
+            onToggleModal={handleModalOpen}
+          />,
+          document.getElementsByClassName('Main')[0],
         )}
     </>
   );

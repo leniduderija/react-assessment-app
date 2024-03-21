@@ -1,17 +1,16 @@
-import React, { ButtonHTMLAttributes, MouseEvent } from "react";
-import "./Button.css";
-import cn from "classnames";
-import { StyledButton } from "./Button.styled";
+import React, { ButtonHTMLAttributes, MouseEvent } from 'react';
+import cn from 'classnames';
+import { StyledButton } from './Button.styled';
 
 export enum ButtonShape {
-  Rounded = "rounded",
-  Square = "square",
+  Rounded = 'rounded',
+  Square = 'square',
 }
 
 export enum ButtonVariant {
-  Solid = "solid",
-  Outlined = "outlined",
-  Link = "link",
+  Solid = 'solid',
+  Outlined = 'outlined',
+  Link = 'link',
 }
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -32,7 +31,7 @@ export const Button = ({
 }: ButtonProps) => {
   return (
     <StyledButton
-      className={cn("Button", className)}
+      className={cn('Button', className)}
       onClick={onClick}
       {...props}
       data-testid="Button"
