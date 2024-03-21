@@ -1,21 +1,18 @@
+import { SightingDto } from '../sightings/sightings';
+
+export interface UserResponseDto {
+  user: UserDto;
+}
+
 export interface UserDto {
   id: number;
   first_name: string;
   last_name: string;
+  avatar?: string;
+  email?: string;
+  date_of_birth?: string;
 }
 
-export interface UserRegistrationDto extends Omit<UserDto, "id"> {
-  email: string;
-  password: string;
-  date_of_birth: string | Date;
-}
-
-export type UserLoginDto = Pick<UserRegistrationDto, "email" | "password">;
-
-export interface UserResponseDto {
-  auth_token: string;
-}
-
-export interface ErrorUserResponseDto extends UserResponseDto {
-  error: string;
+export interface UserWithSightingsDto extends UserDto {
+  sightings: SightingDto[];
 }

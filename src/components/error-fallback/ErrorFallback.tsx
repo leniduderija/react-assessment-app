@@ -1,6 +1,5 @@
-import React from "react";
-import "./ErrorFallback.css";
-import { Button } from "../ui";
+import React from 'react';
+import { Button } from '../ui/button/Button';
 
 export const ErrorFallback = () => {
   return (

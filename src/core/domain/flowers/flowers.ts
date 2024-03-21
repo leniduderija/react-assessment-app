@@ -1,4 +1,4 @@
-import { PaginationDto } from "../meta/meta";
+import { PaginationDto } from '../meta/meta';
 
 export interface FlowerDto {
   id: number;

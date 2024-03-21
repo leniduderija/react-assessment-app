@@ -1,15 +1,15 @@
-import React, { ChangeEvent } from "react";
-import { Input } from "../ui";
-import { Box } from "../ui/box/Box";
-import styled from "styled-components";
-import { ModalActionButton, ModalFooter } from "../ui/modal/Modal.styled";
-import { UserLoginDto } from "../../core/domain/user/user";
-import { ErrorText } from "../ui/error-text/ErrorText.styled";
+import React, { ChangeEvent } from 'react';
+import { Input } from '../ui/input/Input';
+import { Box } from '../ui/box/Box';
+import styled from 'styled-components';
+import { ModalActionButton, ModalFooter } from '../ui/modal/Modal.styled';
+import { ErrorText } from '../ui/error-text/ErrorText.styled';
+import { LoginDto } from '../../core/domain/auth/auth';
 
 interface RegistrationFormProps {
   onChange: (field: string, value: string) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-  errors?: UserLoginDto | null;
+  errors?: LoginDto | null;
   submitting?: boolean;
 }
 
@@ -40,7 +40,7 @@ export const LoginForm = ({
     <Form onSubmit={(e) => onSubmit(e)}>
       <FullWidthBox>
         <Input
-          onChange={(e) => onFieldChange("email", e)}
+          onChange={(e) => onFieldChange('email', e)}
           label="Email Address"
           inputName="email"
           placeholder="e.g. john.doe@gmail.com"
@@ -50,7 +50,7 @@ export const LoginForm = ({
       </FullWidthBox>
       <FullWidthBox>
         <Input
-          onChange={(e) => onFieldChange("password", e)}
+          onChange={(e) => onFieldChange('password', e)}
           label="Password"
           inputName="password"
           type="password"
@@ -61,7 +61,7 @@ export const LoginForm = ({
       </FullWidthBox>
       <ModalFooter>
         <ModalActionButton type="submit" disabled={submitting}>
-          {submitting ? "Submitting..." : "Login to your Account"}
+          {submitting ? 'Logging in...' : 'Login to your Account'}
         </ModalActionButton>
       </ModalFooter>
     </Form>
