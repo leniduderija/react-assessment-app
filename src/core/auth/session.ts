@@ -1,4 +1,4 @@
-const SESSION_KEY = 'flowrspot.user.session';
+const SESSION_KEY = 'react-assessment-app.user.session';
 
 export interface Session {
   user_id: string;

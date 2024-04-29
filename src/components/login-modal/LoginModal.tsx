@@ -109,7 +109,7 @@ export const LoginModal = ({ onClose, onSuccessClose }: LoginModalProps) => {
               <Box>
                 <SuccessText>
                   Congratulations! You have successfully signed up for
-                  FlowrSpot!
+                  ReactAssessmentApp!
                 </SuccessText>
               </Box>
               <ModalFooter>

@@ -11,7 +11,7 @@ export const Header = ({ className }: HeaderProps) => {
     <StyledHeader className={cn('Header', className)} data-testid="Header">
       <StyledContainer>
         <Logo to="/">
-          <img src="/images/logo.png" alt="FlowrSpot logo" />
+          <img src="/images/logo.png" alt="ReactAssessmentApp logo" />
         </Logo>
         <Navigation />
       </StyledContainer>

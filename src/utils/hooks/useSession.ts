@@ -1,7 +1,7 @@
 import { useLocalStorage } from './useLocalStorage';
 import { Session } from '../../core/auth/session';
 
-export const SESSION_KEY = 'flowrspot.user.session';
+export const SESSION_KEY = 'react-assessment-app.user.session';
 export const useSession = () => {
   const { getItem, setItem, removeItem } = useLocalStorage();
 

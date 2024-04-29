@@ -123,7 +123,7 @@ export const RegistrationModal = ({
           <>
             <Box>
               <SuccessText>
-                Congratulations! You have successfully signed up for FlowrSpot!
+                Congratulations! You have successfully signed up for ReactAssessmentApp!
               </SuccessText>
             </Box>
             <ModalFooter>
